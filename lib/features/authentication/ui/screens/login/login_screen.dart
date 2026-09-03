@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
       TextEditingController();
   final TextEditingController _passwordEditingController =
       TextEditingController();
-  bool isPasswordVisible = true;
+  bool isPasswordVisible = false;
   LoginCubit loginCubit = getIt();
 
   @override
@@ -57,11 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40),
-
                 // Route Logo
                 Center(child: Image.asset(AppAssets.logo)),
                 const SizedBox(height: 60),
-
                 // Title and Subtitle
                 Text(
                   'Welcome Back To Route',
@@ -83,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // User Name Field
                 AppTextField(
                   title: 'User Name',
-                  hintText: 'enter your name',
+                  hintText: 'Enter your name',
                   controller: _userNameEditingController,
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -92,16 +90,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Password Field
                 AppTextField(
                   title: 'Password',
-                  hintText: 'enter your password',
+                  hintText: 'Enter your password',
                   controller: _passwordEditingController,
-                  obscureText: true,
-                  suffixIcon: const Icon(
-                    Icons.visibility_off_outlined,
-                    color: AppColors.grey,
+                  obscureText: isPasswordVisible,
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                    child: const Icon(
+                      Icons.visibility_off_outlined,
+                      color: AppColors.grey,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
-
                 // Forgot Password
                 Align(
                   alignment: Alignment.centerRight,
@@ -118,15 +122,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 56),
-
                 // Login Button
                 buildLoginButton(),
                 const SizedBox(height: 32),
-
                 // Register Prompt
                 Center(
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, AppRouter.register);
+                    },
                     child: RichText(
                       text: const TextSpan(
                         style: TextStyle(

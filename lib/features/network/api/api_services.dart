@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
+import '../models/request/register_request.dart';
 import '../models/response/auth_response.dart';
 
 part 'api_services.g.dart';
@@ -16,4 +17,7 @@ abstract class ApiServices {
 
   @POST('auth/signin')
   Future<AuthResponse> login(@Body() LoginRequest request);
+
+  @POST('auth/signup')
+  Future<AuthResponse> register(@Body() RegisterRequest request);
 }
