@@ -5,6 +5,11 @@ class Resource<T> {
 
   Status status = Status.initial;
 
+  bool get isLoading => status == Status.loading;
+  bool get hasError => status == Status.error;
+
+  bool get isSuccess => status == Status.success;
+
   Resource.initial();
 
   Resource.loading({this.errorMessage = '', this.data}) {

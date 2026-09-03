@@ -12,7 +12,7 @@ part 'api_services.g.dart';
 @injectable
 abstract class ApiServices {
   @factoryMethod
-  factory ApiServices(Dio dio, {String? baseUrl}) = _ApiServices;
+  factory ApiServices(Dio dio) = _ApiServices;
 
   @POST('auth/signin')
   Future<AuthResponse> login(@Body() LoginRequest request);
