@@ -5,10 +5,10 @@ class Resource<T> {
 
   Status status = Status.initial;
 
-  Resource();
+  Resource.initial();
 
   Resource.loading({this.errorMessage = '', this.data}) {
-    status = Status.initial;
+    status = Status.loading;
   }
 
   Resource.success({this.errorMessage = '', this.data}) {
