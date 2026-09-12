@@ -2,10 +2,10 @@ import 'package:ecommerce/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_bottom_navigation_bar.dart';
-import 'tabs/categories_tab.dart';
-import 'tabs/home_tab.dart';
-import 'tabs/profile_tab.dart';
-import 'tabs/wishlist_tab.dart';
+import 'tabs/category/categories_tab.dart';
+import 'tabs/home/home_tab.dart';
+import 'tabs/profile/profile_tab.dart';
+import 'tabs/wishlist/wishlist_tab.dart';
 
 class MainTabsScreen extends StatefulWidget {
   const MainTabsScreen({super.key});

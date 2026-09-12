@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/network/models/response/user.dart';
+import 'package:ecommerce/features/network/models/response/auth/user.dart';
 
 class AuthResponse {
   String? message;
