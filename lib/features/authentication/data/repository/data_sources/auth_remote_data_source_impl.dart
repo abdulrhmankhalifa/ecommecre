@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../network/api_result.dart';
 import '../../../../network/models/request/login_request.dart';
 import '../../../../network/models/request/register_request.dart';
-import '../../../../network/models/response/auth_response.dart';
+import '../../../../network/models/response/auth/auth_response.dart';
 import '../../../../network/utils/handle_dio_error.dart';
 
 @Injectable(as: AuthRemoteDataSource)

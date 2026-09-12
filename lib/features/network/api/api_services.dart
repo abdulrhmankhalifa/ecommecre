@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce/features/network/models/request/login_request.dart';
+import 'package:ecommerce/features/network/models/response/category/categories_response.dart';
+import 'package:ecommerce/features/network/models/response/product/products_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../models/request/register_request.dart';
-import '../models/response/auth_response.dart';
+import '../models/response/auth/auth_response.dart';
 
 part 'api_services.g.dart';
 
@@ -20,4 +22,9 @@ abstract class ApiServices {
 
   @POST('auth/signup')
   Future<AuthResponse> register(@Body() RegisterRequest request);
+
+  @GET('categories')
+  Future<CategoriesResponse> getCategories();
+  @GET('products')
+  Future<ProductsResponse> getProducts();
 }
