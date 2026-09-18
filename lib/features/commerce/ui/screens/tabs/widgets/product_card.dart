@@ -115,15 +115,26 @@ class ProductCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      const SizedBox(width: 8),
                       Text(
-                        '${product.priceAfterDiscount} EGP',
-                        style: TextStyle(
-                          color: AppColors.primary.withOpacity(0.6),
-                          fontSize: 11,
-                          decoration: TextDecoration.lineThrough,
+                        'EGP ${product.price}',
+                        style: const TextStyle(
+                          color: AppColors.textDark,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
+                      if (product.priceAfterDiscount > 0 &&
+                          product.priceAfterDiscount != product.price) ...[
+                        const SizedBox(width: 8),
+                        Text(
+                          '${product.priceAfterDiscount} EGP',
+                          style: TextStyle(
+                            color: AppColors.primary.withOpacity(0.6),
+                            fontSize: 11,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                   const SizedBox(height: 4),
