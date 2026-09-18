@@ -29,6 +29,7 @@ import '../../features/authentication/ui/screens/login/cubit/login_cubit.dart'
     as _i333;
 import '../../features/authentication/ui/screens/register/cubit/register_cubit.dart'
     as _i712;
+import '../../features/cart/data/mapper/cart_mapper.dart' as _i817;
 import '../../features/commerce/data/mappers/category_mapper.dart' as _i360;
 import '../../features/commerce/data/mappers/product_mapper.dart' as _i417;
 import '../../features/commerce/data/mappers/sub_category_mapper.dart'
@@ -71,6 +72,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1017.SubCategoryMapper>(() => _i1017.SubCategoryMapper());
     gh.singleton<_i420.SharedPrefUtils>(() => _i420.SharedPrefUtils());
     gh.factory<_i392.ApiServices>(() => _i392.ApiServices(gh<_i361.Dio>()));
+    gh.factory<_i817.CartMapper>(
+      () => _i817.CartMapper(gh<_i417.ProductMapper>()),
+    );
     gh.factory<_i633.AuthRemoteDataSource>(
       () => _i115.AuthRemoteDataSourceImpl(gh<_i392.ApiServices>()),
     );
