@@ -28,6 +28,7 @@ class ProductCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(
+            // ignore: deprecated_member_use
             color: AppColors.primary.withOpacity(0.3),
             width: 1.2,
           ),
@@ -129,6 +130,7 @@ class ProductCard extends StatelessWidget {
                         Text(
                           '${product.priceAfterDiscount} EGP',
                           style: TextStyle(
+                            // ignore: deprecated_member_use
                             color: AppColors.primary.withOpacity(0.6),
                             fontSize: 11,
                             decoration: TextDecoration.lineThrough,

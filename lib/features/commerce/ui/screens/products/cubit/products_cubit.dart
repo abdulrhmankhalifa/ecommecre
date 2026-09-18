@@ -27,9 +27,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     } else {
       emit(
         state.copyWith(
-          productsApi: Resource.error(
-            errorMessage: apiResult.errorMessage ?? 'Failed to load products',
-          ),
+          productsApi: Resource.error(errorMessage: apiResult.errorMessage),
         ),
       );
     }

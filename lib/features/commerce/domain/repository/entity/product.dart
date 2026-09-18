@@ -10,7 +10,8 @@ class Product {
   final double ratingsAverage;
   final String id;
   final int priceAfterDiscount;
-
+  int? totalCartPrice;
+  int cartQty;
   Product({
     required this.sold,
     required this.images,
@@ -23,5 +24,7 @@ class Product {
     required this.ratingsAverage,
     required this.id,
     required this.priceAfterDiscount,
+    this.totalCartPrice,
+    this.cartQty = 0,
   });
 }

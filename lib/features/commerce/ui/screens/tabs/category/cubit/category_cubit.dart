@@ -12,10 +12,8 @@ class CategoryCubit extends Cubit<CategoryState> {
   final GetCategoriesUseCase _getCategoriesUseCase;
   final GetSubCategoriesUseCase _getSubCategoriesUseCase;
 
-  CategoryCubit(
-    this._getCategoriesUseCase,
-    this._getSubCategoriesUseCase,
-  ) : super(CategoryState.initial());
+  CategoryCubit(this._getCategoriesUseCase, this._getSubCategoriesUseCase)
+    : super(CategoryState.initial());
 
   Future<void> loadCategories() async {
     emit(state.copyWith(categoriesApi: Resource.loading()));
@@ -38,9 +36,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     } else {
       emit(
         state.copyWith(
-          categoriesApi: Resource.error(
-            errorMessage: apiResult.errorMessage ?? 'Failed to load categories',
-          ),
+          categoriesApi: Resource.error(errorMessage: apiResult.errorMessage),
         ),
       );
     }
@@ -66,8 +62,7 @@ class CategoryCubit extends Cubit<CategoryState> {
       emit(
         state.copyWith(
           subCategoriesApi: Resource.error(
-            errorMessage:
-                apiResult.errorMessage ?? 'Failed to load subcategories',
+            errorMessage: apiResult.errorMessage,
           ),
         ),
       );
