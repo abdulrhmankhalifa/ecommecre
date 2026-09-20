@@ -160,12 +160,12 @@ class _ApiServices implements ApiServices {
   }
 
   @override
-  Future<CategoriesResponse> getCart() async {
+  Future<CartResponse> getCart() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<CategoriesResponse>(
+    final _options = _setStreamType<CartResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -176,9 +176,9 @@ class _ApiServices implements ApiServices {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CategoriesResponse _value;
+    late CartResponse _value;
     try {
-      _value = CategoriesResponse.fromJson(_result.data!);
+      _value = CartResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -187,13 +187,13 @@ class _ApiServices implements ApiServices {
   }
 
   @override
-  Future<CategoriesResponse> addToCart(AddToCartRequest request) async {
+  Future<void> addToCart(AddToCartRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _options = _setStreamType<CategoriesResponse>(
+    final _options = _setStreamType<void>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -203,19 +203,11 @@ class _ApiServices implements ApiServices {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CategoriesResponse _value;
-    try {
-      _value = CategoriesResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
-      rethrow;
-    }
-    return _value;
+    await _dio.fetch<void>(_options);
   }
 
   @override
-  Future<CategoriesResponse> updateCartQty(
+  Future<CartResponse> updateCartQty(
     String productId,
     UpdateCartQty request,
   ) async {
@@ -224,7 +216,7 @@ class _ApiServices implements ApiServices {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _options = _setStreamType<CategoriesResponse>(
+    final _options = _setStreamType<CartResponse>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -235,9 +227,9 @@ class _ApiServices implements ApiServices {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CategoriesResponse _value;
+    late CartResponse _value;
     try {
-      _value = CategoriesResponse.fromJson(_result.data!);
+      _value = CartResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -246,12 +238,12 @@ class _ApiServices implements ApiServices {
   }
 
   @override
-  Future<CategoriesResponse> removeItemFromCart(String productId) async {
+  Future<CartResponse> removeItemFromCart(String productId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<CategoriesResponse>(
+    final _options = _setStreamType<CartResponse>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -262,9 +254,9 @@ class _ApiServices implements ApiServices {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CategoriesResponse _value;
+    late CartResponse _value;
     try {
-      _value = CategoriesResponse.fromJson(_result.data!);
+      _value = CartResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

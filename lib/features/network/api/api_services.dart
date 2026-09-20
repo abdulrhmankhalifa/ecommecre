@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce/features/network/models/request/login_request.dart';
 import 'package:ecommerce/features/network/models/request/update_cart_qty.dart';
+import 'package:ecommerce/features/network/models/response/cart/cart_response.dart';
 import 'package:ecommerce/features/network/models/response/category/categories_response.dart';
 import 'package:ecommerce/features/network/models/response/product/products_response.dart';
 import 'package:injectable/injectable.dart';
@@ -38,14 +39,14 @@ abstract class ApiServices {
   );
 
   @GET('cart')
-  Future<CategoriesResponse> getCart();
+  Future<CartResponse> getCart();
   @POST('cart')
-  Future<CategoriesResponse> addToCart(@Body() AddToCartRequest request);
+  Future<void> addToCart(@Body() AddToCartRequest request);
   @PUT('cart/{productId}')
-  Future<CategoriesResponse> updateCartQty(
+  Future<CartResponse> updateCartQty(
     @Path() String productId,
     @Body() UpdateCartQty request,
   );
   @DELETE('cart/{productId}')
-  Future<CategoriesResponse> removeItemFromCart(@Path() String productId);
+  Future<CartResponse> removeItemFromCart(@Path() String productId);
 }

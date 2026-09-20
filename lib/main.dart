@@ -1,6 +1,8 @@
 import 'package:ecommerce/core/di/di.dart';
+import 'package:ecommerce/features/cart/ui/cubit/cart_cubit.dart';
 import 'package:ecommerce/features/commerce/ui/screens/main_tabs_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/shared_pref_utils/shared_pref_utils.dart';
 import 'core/theme/app_theme.dart';
@@ -12,7 +14,12 @@ void main() async {
   SharedPrefUtils prefUtils = getIt();
   String? token = await prefUtils.getToken();
 
-  runApp(MyApp(isLoggedIn: token?.isNotEmpty ?? false));
+  runApp(
+    BlocProvider(
+      create: (context) => getIt<CartCubit>(),
+      child: MyApp(isLoggedIn: token?.isNotEmpty ?? false),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

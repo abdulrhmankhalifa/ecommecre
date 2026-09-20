@@ -1,13 +1,17 @@
 import 'package:ecommerce/core/theme/colors.dart';
+import 'package:ecommerce/features/cart/ui/cubit/cart_cubit.dart';
+import 'package:ecommerce/features/cart/ui/cubit/cart_state.dart';
 import 'package:ecommerce/features/commerce/domain/repository/entity/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/di/di.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
   final bool isFavorite;
   final VoidCallback? onTap;
   final VoidCallback? onFavoriteTap;
-  final VoidCallback? onAddToCartTap;
 
   const ProductCard({
     super.key,
@@ -15,7 +19,6 @@ class ProductCard extends StatelessWidget {
     this.isFavorite = false,
     this.onTap,
     this.onFavoriteTap,
-    this.onAddToCartTap,
   });
 
   @override
@@ -161,22 +164,7 @@ class ProductCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      InkWell(
-                        onTap: onAddToCartTap,
-                        child: Container(
-                          width: 32,
-                          height: 32,
-                          decoration: const BoxDecoration(
-                            color: AppColors.primary,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
+                      buildAddToCartButton(),
                     ],
                   ),
                 ],
@@ -185,6 +173,35 @@ class ProductCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildAddToCartButton() {
+    var cubit = getIt<CartCubit>();
+    return BlocBuilder<CartCubit, CartState>(
+      builder: (context, state) {
+        bool inCart = state.isProductInCart(product.id);
+        return InkWell(
+          onTap: () {
+            inCart
+                ? cubit.removeFromCart(product.id)
+                : cubit.addToCart(product.id);
+          },
+          child: Container(
+            width: 32,
+            height: 32,
+            decoration: const BoxDecoration(
+              color: AppColors.primary,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              inCart ? Icons.minimize_rounded : Icons.add,
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+        );
+      },
     );
   }
 }

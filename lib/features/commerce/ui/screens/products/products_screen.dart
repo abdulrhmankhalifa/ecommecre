@@ -13,11 +13,7 @@ class ProductsScreen extends StatefulWidget {
   final String? categoryId;
   final String? subCategoryId;
 
-  const ProductsScreen({
-    super.key,
-    this.categoryId,
-    this.subCategoryId,
-  });
+  const ProductsScreen({super.key, this.categoryId, this.subCategoryId});
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -71,7 +67,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 builder: (context, state) {
                   if (state.productsApi.isLoading) {
                     return const Center(
-                      child: CircularProgressIndicator(color: AppColors.primary),
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      ),
                     );
                   }
 
@@ -101,12 +99,13 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       horizontal: 16,
                       vertical: 12,
                     ),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      childAspectRatio: 0.68,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          childAspectRatio: 0.68,
+                        ),
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       final product = products[index];
@@ -114,9 +113,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         product: product,
                         onTap: () {
                           // Navigate to product details if implemented
-                        },
-                        onAddToCartTap: () {
-                          // Handle add to cart
                         },
                         onFavoriteTap: () {
                           // Handle favorite toggle
