@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce/features/network/api_result.dart';
 
-ApiResult<T> handelApiError<T>(DioException e) {
+ApiResult<T> handelApiError<T>(e) {
   switch (e.type) {
     case DioExceptionType.connectionTimeout ||
         DioExceptionType.receiveTimeout ||

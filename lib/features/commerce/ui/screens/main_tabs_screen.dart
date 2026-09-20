@@ -1,6 +1,8 @@
 import 'package:ecommerce/core/theme/colors.dart';
+import 'package:ecommerce/features/cart/ui/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/di/di.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 import 'tabs/category/categories_tab.dart';
 import 'tabs/home/home_tab.dart';
@@ -16,13 +18,19 @@ class MainTabsScreen extends StatefulWidget {
 
 class _MainTabsScreenState extends State<MainTabsScreen> {
   int _selectedIndex = 0;
-
+  CartCubit cubit = getIt();
   final List<Widget> _tabs = const [
     HomeTab(),
     CategoriesTab(),
     WishlistTab(),
     ProfileTab(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    cubit.getCart();
+  }
 
   @override
   Widget build(BuildContext context) {
