@@ -55,7 +55,7 @@ class ProductsSection extends StatelessWidget {
             if (state.productsApi.isSuccess) {
               var products = state.productsApi.data ?? [];
               return SizedBox(
-                height: 245,
+                height: 280,
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   scrollDirection: Axis.horizontal,

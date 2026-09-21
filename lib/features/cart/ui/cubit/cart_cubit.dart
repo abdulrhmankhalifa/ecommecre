@@ -22,7 +22,9 @@ class CartCubit extends Cubit<CartState> {
     this._updateCartQtyUsecase,
   ) : super(CartState.initial());
   Future<void> getCart() async {
-    emit(state.copyWith(cartState: Resource.loading()));
+    emit(
+      state.copyWith(cartState: Resource.loading(data: state.cartState.data)),
+    );
     var apiResult = await _getCartUsecase.call();
     if (apiResult.isSuccess) {
       emit(
@@ -31,55 +33,102 @@ class CartCubit extends Cubit<CartState> {
     } else {
       emit(
         state.copyWith(
-          cartState: Resource.error(errorMessage: apiResult.errorMessage),
+          cartState: Resource.error(
+            errorMessage: apiResult.errorMessage,
+            data: state.cartState.data,
+          ),
         ),
       );
     }
   }
 
   Future<void> addToCart(String productId) async {
-    emit(state.copyWith(cartState: Resource.loading()));
+    List<String> currentProductIds = state.productIds;
+    currentProductIds.add(productId);
+    emit(
+      state.copyWith(
+        cartState: Resource.loading(data: state.cartState.data),
+        productIds: currentProductIds,
+      ),
+    );
+    currentProductIds.remove(productId);
     var apiResult = await _addToCartUsecase.call(productId);
     if (apiResult.isSuccess) {
       emit(
-        state.copyWith(cartState: Resource.success(data: apiResult.getData())),
+        state.copyWith(
+          cartState: Resource.success(data: apiResult.getData()),
+          productIds: currentProductIds,
+        ),
       );
     } else {
+      currentProductIds.remove(productId);
       emit(
         state.copyWith(
-          cartState: Resource.error(errorMessage: apiResult.errorMessage),
+          cartState: Resource.error(
+            errorMessage: apiResult.errorMessage,
+            data: state.cartState.data,
+          ),
+          productIds: currentProductIds,
         ),
       );
     }
   }
 
   Future<void> removeFromCart(String productId) async {
-    emit(state.copyWith(cartState: Resource.loading()));
+    List<String> currentProductIds = state.productIds;
+    currentProductIds.add(productId);
+    emit(
+      state.copyWith(
+        cartState: Resource.loading(data: state.cartState.data),
+        productIds: currentProductIds,
+      ),
+    );
     var apiResult = await _removeFromCartUsecase.call(productId);
     if (apiResult.isSuccess) {
       emit(
-        state.copyWith(cartState: Resource.success(data: apiResult.getData())),
+        state.copyWith(
+          cartState: Resource.success(data: apiResult.getData()),
+          productIds: currentProductIds,
+        ),
       );
     } else {
       emit(
         state.copyWith(
-          cartState: Resource.error(errorMessage: apiResult.errorMessage),
+          cartState: Resource.error(
+            errorMessage: apiResult.errorMessage,
+            data: state.cartState.data,
+          ),
+          productIds: currentProductIds,
         ),
       );
     }
   }
 
   Future<void> updateProductQty(String productId, int count) async {
-    emit(state.copyWith(cartState: Resource.loading()));
+    List<String> currentProductIds = state.productIds;
+    currentProductIds.add(productId);
+    emit(
+      state.copyWith(
+        cartState: Resource.loading(data: state.cartState.data),
+        productIds: currentProductIds,
+      ),
+    );
     var apiResult = await _updateCartQtyUsecase.call(productId, count);
     if (apiResult.isSuccess) {
       emit(
-        state.copyWith(cartState: Resource.success(data: apiResult.getData())),
+        state.copyWith(
+          cartState: Resource.success(data: apiResult.getData()),
+          productIds: currentProductIds,
+        ),
       );
     } else {
       emit(
         state.copyWith(
-          cartState: Resource.error(errorMessage: apiResult.errorMessage),
+          cartState: Resource.error(
+            errorMessage: apiResult.errorMessage,
+            data: state.cartState.data,
+          ),
+          productIds: currentProductIds,
         ),
       );
     }

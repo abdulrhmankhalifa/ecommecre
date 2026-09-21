@@ -1,4 +1,5 @@
 import 'package:ecommerce/core/theme/colors.dart';
+import 'package:ecommerce/core/widgets/qty_control_widget.dart';
 import 'package:ecommerce/features/cart/ui/cubit/cart_cubit.dart';
 import 'package:ecommerce/features/cart/ui/cubit/cart_state.dart';
 import 'package:ecommerce/features/commerce/domain/repository/entity/product.dart';
@@ -164,8 +165,12 @@ class ProductCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      buildAddToCartButton(),
                     ],
+                  ),
+                  const SizedBox(height: 12),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: buildAddToCartButton(),
                   ),
                 ],
               ),
@@ -180,27 +185,35 @@ class ProductCard extends StatelessWidget {
     var cubit = getIt<CartCubit>();
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
-        bool inCart = state.isProductInCart(product.id);
-        return InkWell(
-          onTap: () {
-            inCart
-                ? cubit.removeFromCart(product.id)
-                : cubit.addToCart(product.id);
-          },
-          child: Container(
-            width: 32,
-            height: 32,
-            decoration: const BoxDecoration(
-              color: AppColors.primary,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              inCart ? Icons.minimize_rounded : Icons.add,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
-        );
+        if (state.cartState.isLoading &&
+            state.productIds.contains(product.id)) {
+          return CircularProgressIndicator();
+        }
+        Product? cartProduct = state.getProductFromCart(product.id);
+        return cartProduct == null
+            ? InkWell(
+                onTap: () {
+                  cubit.addToCart(product.id);
+                },
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.add, color: Colors.white, size: 20),
+                ),
+              )
+            : QtyControlWidget(
+                qty: cartProduct.cartQty,
+                onPlusClick: (qty) {
+                  cubit.updateProductQty(product.id, cartProduct.cartQty + 1);
+                },
+                onMinusClick: (qty) {
+                  cubit.updateProductQty(product.id, cartProduct.cartQty - 1);
+                },
+              );
       },
     );
   }
